@@ -24,9 +24,7 @@ const createNewUserController = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).send({
         status: 'FAILED',
-        data: {
-          error: 'Missing fields'
-        }
+        data: 'Missing fields'
       })
     }
 
@@ -44,9 +42,7 @@ const createNewUserController = async (req, res) => {
   } catch (error) {
     return res.status(error.status || 500).send({
       status: 'FAILED',
-      data: {
-        error: error.message
-      }
+      data: error.message
     })
   }
 }
@@ -58,13 +54,11 @@ const deleteUserController = async (req, res) => {
 
     return res
       .status(200)
-      .send({ status: 'OK', data: 'User deleted successfully.' })
+      .send({ status: 'OK', data: 'User deleted successfully' })
   } catch (error) {
     return res.status(error.status || 500).send({
       status: 'FAILED',
-      data: {
-        error: error.message
-      }
+      data: error.message
     })
   }
 }
@@ -79,9 +73,7 @@ const updateUserController = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).send({
         status: 'FAILED',
-        data: {
-          error: 'Missing fields'
-        }
+        data: 'Missing fields'
       })
     }
 
@@ -100,9 +92,7 @@ const updateUserController = async (req, res) => {
   } catch (error) {
     return res.status(error.status || 500).send({
       status: 'FAILED',
-      data: {
-        error: error.message
-      }
+      data: error.message
     })
   }
 }

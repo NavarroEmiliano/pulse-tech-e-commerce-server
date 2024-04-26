@@ -4,14 +4,10 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
 const loginUser = async (email, password) => {
-
   const user = await User.findOne({ email })
-
-
 
   const passwordCorrect =
     user === null ? false : await bcrypt.compare(password, user.passwordHash)
-
 
   if (!(user && passwordCorrect)) {
     throw {
@@ -25,12 +21,11 @@ const loginUser = async (email, password) => {
     id: user.id
   }
 
-  const token = jwt.sign(userForToken, process.env.SECRET, {
-    expiresIn: 60 * 60
+  const token = jwt.sign(userForToken, process.env.TOKEN_SECRET_KEY, {
+    expiresIn: 60 * 60 * 8
   })
 
-
-  return { token, email: user.email, name: user.name }
+  return token
 }
 
 module.exports = {

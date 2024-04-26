@@ -11,7 +11,7 @@ const getOneUser = async id => {
   if (!user)
     throw {
       status: 404,
-      message: 'User not found.'
+      message: 'User not found'
     }
   return user
 }
@@ -22,7 +22,7 @@ const createNewUser = async newUser => {
   if (findUser.length) {
     throw {
       status: 409,
-      message: 'The user already exists in the database.'
+      message: 'The user already exists in the database'
     }
   }
 
@@ -41,7 +41,7 @@ const deleteUser = async id => {
   if (!user) {
     throw {
       status: 404,
-      message: 'User not found.'
+      message: 'User not found'
     }
   }
 
@@ -54,7 +54,7 @@ const updateUser = async (id, newData) => {
   if (!user) {
     throw {
       status: 404,
-      message: 'User not found.'
+      message: 'User not found'
     }
   }
 

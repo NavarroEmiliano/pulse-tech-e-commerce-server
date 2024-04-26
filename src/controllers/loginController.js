@@ -7,14 +7,22 @@ const loginUserController = async (req, res) => {
     if (!email || !password) {
       return res.status(400).send({
         status: 'FAILED',
-        data: {
-          error: 'Missing fields'
-        }
+        data: 'Missing fields'
       })
     }
 
-    const user = await loginService.loginUser(email, password)
-    return res.status(200).send({ status: 'OK', data: user })
+    const token = await loginService.loginUser(email, password)
+
+    const tokenOption = {
+      httpOnly: true,
+      secure: true
+    }
+
+    return res
+      .cookie('loggedPulseTechUserToken', token, tokenOption)
+      .status(200)
+      .send({ status: 'OK', data: token })
+
   } catch (error) {
     return res
       .status(error.status || 500)
