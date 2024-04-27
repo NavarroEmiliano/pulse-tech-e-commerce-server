@@ -18,7 +18,6 @@ const getOneUser = async id => {
 
 const createNewUser = async newUser => {
   const findUser = await User.find({ email: newUser.email })
-
   if (findUser.length) {
     throw {
       status: 409,
@@ -49,7 +48,7 @@ const deleteUser = async id => {
 }
 
 const updateUser = async (id, newData) => {
-  const user = await User.findByIdAndUpdate(id, newData, { new: true })
+  const user = await User.findByIdAndUpdate(id, newData,{new:true})
 
   if (!user) {
     throw {

@@ -6,13 +6,14 @@ const {
   deleteUserController,
   updateUserController
 } = require('../controllers/usersController')
+const authToken = require('../middleware/authToken')
 const router = Router()
 
 router
-  .get('/', getAllUsersController)
-  .get('/:id', getOneUserController)
+  .get('/', authToken, getAllUsersController)
+  .get('/:id', authToken, getOneUserController)
   .post('/', createNewUserController)
-  .delete('/:id', deleteUserController)
-  .put('/:id', updateUserController)
+  .delete('/:id', authToken, deleteUserController)
+  .put('/:id', authToken, updateUserController)
 
 module.exports = router

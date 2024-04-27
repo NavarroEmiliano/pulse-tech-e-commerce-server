@@ -6,7 +6,7 @@ const getAllUsersController = async (_req, res) => {
   return res.send({ status: 'OK', data: allUsers })
 }
 
- const getOneUserController = async (req, res) => {
+const getOneUserController = async (req, res) => {
   try {
     const { id } = req.params
     const user = await usersService.getOneUser(id)
@@ -67,24 +67,14 @@ const deleteUserController = async (req, res) => {
 const updateUserController = async (req, res) => {
   try {
     const {
-      body: { name, email, password },
+      body: { name, email, role },
       params: { id }
     } = req
 
-    if (!name || !email || !password) {
-      return res.status(400).send({
-        status: 'FAILED',
-        data: 'Missing fields'
-      })
-    }
-
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(password, saltRounds)
-
     const newData = {
-      name,
-      email,
-      passwordHash
+      ...(name && { name: name }),
+      ...(email && { email: email }),
+      ...(role && { role: role })
     }
 
     const updatedUser = await usersService.updateUser(id, newData)
