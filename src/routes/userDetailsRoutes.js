@@ -1,8 +1,10 @@
 const { Router } = require('express')
-const userDetailsController = require('../controllers/userDetailsController')
+const {
+  getUserDetailsController
+} = require('../controllers/userDetailsController')
 
 const router = Router()
 
-router.get('/', userDetailsController.getUserDetails)
+router.get('/', getUserDetailsController)
 
 module.exports = router
