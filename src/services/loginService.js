@@ -18,6 +18,7 @@ const loginUser = async (email, password) => {
 
   const userForToken = {
     email: user.email,
+    name: user.name,
     id: user.id
   }
 

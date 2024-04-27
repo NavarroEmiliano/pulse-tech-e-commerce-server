@@ -6,7 +6,7 @@ const getAllUsersController = async (_req, res) => {
   return res.send({ status: 'OK', data: allUsers })
 }
 
-const getOneUserController = async (req, res) => {
+ const getOneUserController = async (req, res) => {
   try {
     const { id } = req.params
     const user = await usersService.getOneUser(id)
