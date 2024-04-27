@@ -34,7 +34,8 @@ const createNewUserController = async (req, res) => {
     const newUser = {
       email,
       name,
-      passwordHash
+      passwordHash,
+      role: 'GENERAL'
     }
     const user = await usersService.createNewUser(newUser)
 
