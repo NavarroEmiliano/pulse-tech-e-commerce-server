@@ -47,7 +47,32 @@ const createNewProductController = async (req, res) => {
   }
 }
 
+const updateProductController = async (req, res) => {
+  try {
+    const { id } = req.params
+    const product = { ...req.body }
+
+
+    if (!uploadProductPermission(req.userId)) {
+      throw {
+        status: 401,
+        message: 'Unauthorized'
+      }
+    }
+
+    const updatedProduct = await productService.updateProduct(id, product)
+
+    return res.status(200).send({ status: 'OK', data: updatedProduct })
+  } catch (error) {
+    return res.status(error.status || 500).send({
+      status: 'FAILED',
+      data: error.message
+    })
+  }
+}
+
 module.exports = {
   getAllProductsController,
-  createNewProductController
+  createNewProductController,
+  updateProductController
 }

@@ -21,7 +21,7 @@ const createNewProduct = async newProduct => {
   if (foundProduct.length) {
     throw {
       status: 409,
-      message: 'The product already exists in the database'
+      message: 'There is already a product with that title'
     }
   }
 
@@ -34,7 +34,7 @@ const createNewProduct = async newProduct => {
   return savedProduct
 }
 
-const deleteUser = async id => {
+const deleteProduct = async id => {
   const product = await Product.findByIdAndDelete(id)
 
   if (!product) {
@@ -47,7 +47,17 @@ const deleteUser = async id => {
   return product
 }
 
-const updateUser = async (id, newData) => {
+const updateProduct = async (id, newData) => {
+
+  const foundProduct = await Product.find({ title: newData.title })
+
+  if (foundProduct.length && foundProduct[0].id !== id) {
+    throw {
+      status: 409,
+      message: 'There is already a product with that title'
+    }
+  }
+
   const product = await Product.findByIdAndUpdate(id, newData, { new: true })
 
   if (!product) {
@@ -64,6 +74,6 @@ module.exports = {
   getAllProducts,
   getOneProduct,
   createNewProduct,
-  deleteUser,
-  updateUser
+  deleteProduct,
+  updateProduct
 }
