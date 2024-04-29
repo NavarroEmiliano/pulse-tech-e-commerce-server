@@ -4,10 +4,14 @@ require('dotenv').config()
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
+/* Routers */
 const usersRouter = require('./routes/usersRoutes')
 const loginRouter = require('./routes/loginRoutes')
 const userDetailsRouter = require('./routes/userDetailsRoutes')
 const logoutUserRouter = require('./routes/logoutRoutes')
+const productsRouter = require('./routes/productsRoutes')
+
+
 const authToken = require('./middleware/authToken')
 
 app.use(
@@ -24,5 +28,6 @@ app.use('/api/users',  usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/user-details', authToken, userDetailsRouter)
 app.use('/api/user-logout', logoutUserRouter)
+app.use('/api/products', productsRouter)
 
 module.exports = app
