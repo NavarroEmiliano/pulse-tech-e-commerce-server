@@ -48,7 +48,6 @@ const deleteProduct = async id => {
 }
 
 const updateProduct = async (id, newData) => {
-
   const foundProduct = await Product.find({ title: newData.title })
 
   if (foundProduct.length && foundProduct[0].id !== id) {
@@ -70,10 +69,34 @@ const updateProduct = async (id, newData) => {
   return product
 }
 
+const getProductByCategory = async () => {
+  const productsFound = await Product.distinct('category')
+
+  if (!productsFound.length) {
+    throw {
+      status: 404,
+      message: 'Products not found'
+    }
+  }
+
+  const productsByCategory = []
+
+  for (const category of productsFound) {
+    const product = await Product.findOne({ category })
+    if (product) {
+      productsByCategory.push(product)
+    }
+  }
+
+
+  return productsByCategory
+}
+
 module.exports = {
   getAllProducts,
   getOneProduct,
   createNewProduct,
   deleteProduct,
-  updateProduct
+  updateProduct,
+  getProductByCategory
 }

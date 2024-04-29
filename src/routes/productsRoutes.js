@@ -4,12 +4,15 @@ const authToken = require('../middleware/authToken')
 const {
   createNewProductController,
   getAllProductsController,
-  updateProductController
+  updateProductController,
+  getProductsByCategoryController
 } = require('../controllers/productController')
 
-router.get('/',getAllProductsController)
-      .post('/', authToken, createNewProductController)
-      .put('/:id', authToken, updateProductController)
+router
+  .get('/', getAllProductsController)
+  .post('/', authToken, createNewProductController)
+  .put('/:id', authToken, updateProductController)
+  .get('/by-category', getProductsByCategoryController)
 
 module.exports = router
 

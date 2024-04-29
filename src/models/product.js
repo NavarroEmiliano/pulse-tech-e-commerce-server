@@ -19,11 +19,14 @@ const productSchema = new mongoose.Schema(
     },
     brand: String,
     category: String,
-    images: Array(String)
+    images: Array(String),
+    state: {
+      type: Boolean,
+      default: true
+    }
   },
   { timestamps: true }
 )
-
 
 productSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
