@@ -70,7 +70,12 @@ const updateProduct = async (id, newData) => {
 }
 
 const getProductByCategory = async () => {
+  console.log('Holis servicio')
+
+  console.log('Voy a buscar por categoria')
   const productsFound = await Product.distinct('category')
+
+  console.log('Termine de buscar')
 
   if (!productsFound.length) {
     throw {
@@ -83,12 +88,13 @@ const getProductByCategory = async () => {
 
   for (const category of productsFound) {
     const product = await Product.findOne({ category })
+    console.log("Category", product.category)
     if (product) {
       productsByCategory.push(product)
     }
   }
 
-
+  console.log('Voy a enviar los productos al controller')
   return productsByCategory
 }
 
