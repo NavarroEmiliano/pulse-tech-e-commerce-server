@@ -10,9 +10,9 @@ const {
 
 router
   .get('/', getAllProductsController)
+  .get('/category/:categoryName', getProductsByCategoryController)
   .post('/', authToken, createNewProductController)
   .put('/:id', authToken, updateProductController)
-  .get('/by-category', getProductsByCategoryController)
 
 module.exports = router
 

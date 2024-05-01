@@ -71,11 +71,9 @@ const updateProductController = async (req, res) => {
 }
 
 const getProductsByCategoryController = async (req, res) => {
-  console.log('--------------Nueva Busqueda------------------')
-  console.log('Holis Controller')
   try {
-    const productsByCategory = await productService.getProductByCategory()
-    console.log('Voy a enviar la response al front')
+    const {categoryName}= req.params
+    const productsByCategory = await productService.getProductsByCategory(categoryName)
     return res.send({ status: 'OK', data: productsByCategory })
   } catch (error) {
     return res.status(error.status || 500).send({

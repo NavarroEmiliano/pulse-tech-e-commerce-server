@@ -69,13 +69,10 @@ const updateProduct = async (id, newData) => {
   return product
 }
 
-const getProductByCategory = async () => {
-  console.log('Holis servicio')
+const getProductsByCategory = async (category) => {
 
-  console.log('Voy a buscar por categoria')
-  const productsFound = await Product.distinct('category')
+  const productsFound = await Product.find({category})
 
-  console.log('Termine de buscar')
 
   if (!productsFound.length) {
     throw {
@@ -84,18 +81,7 @@ const getProductByCategory = async () => {
     }
   }
 
-  const productsByCategory = []
-
-  for (const category of productsFound) {
-    const product = await Product.findOne({ category })
-    console.log("Category", product.category)
-    if (product) {
-      productsByCategory.push(product)
-    }
-  }
-
-  console.log('Voy a enviar los productos al controller')
-  return productsByCategory
+  return productsFound
 }
 
 module.exports = {
@@ -104,5 +90,5 @@ module.exports = {
   createNewProduct,
   deleteProduct,
   updateProduct,
-  getProductByCategory
+  getProductsByCategory
 }
