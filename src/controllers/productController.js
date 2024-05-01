@@ -6,6 +6,18 @@ const getAllProductsController = async (_req, res) => {
   return res.send({ status: 'OK', data: allProducts })
 }
 
+const getOneProductController = async (req, res) => {
+  try {
+    const { productId } = req.params
+    const product = await productService.getOneProduct(productId)
+    return res.send({ status: 'OK', data: product })
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
+
 const createNewProductController = async (req, res) => {
   try {
     const sessionUserId = req.userId
@@ -72,8 +84,10 @@ const updateProductController = async (req, res) => {
 
 const getProductsByCategoryController = async (req, res) => {
   try {
-    const {categoryName}= req.params
-    const productsByCategory = await productService.getProductsByCategory(categoryName)
+    const { categoryName } = req.params
+    const productsByCategory = await productService.getProductsByCategory(
+      categoryName
+    )
     return res.send({ status: 'OK', data: productsByCategory })
   } catch (error) {
     return res.status(error.status || 500).send({
@@ -87,5 +101,6 @@ module.exports = {
   getAllProductsController,
   createNewProductController,
   updateProductController,
-  getProductsByCategoryController
+  getProductsByCategoryController,
+  getOneProductController
 }

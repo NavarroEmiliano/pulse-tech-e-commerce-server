@@ -5,17 +5,18 @@ const {
   createNewProductController,
   getAllProductsController,
   updateProductController,
-  getProductsByCategoryController
+  getProductsByCategoryController,
+  getOneProductController
 } = require('../controllers/productController')
 
 router
   .get('/', getAllProductsController)
   .get('/category/:categoryName', getProductsByCategoryController)
+  .get('/:productId', getOneProductController)
   .post('/', authToken, createNewProductController)
   .put('/:id', authToken, updateProductController)
 
 module.exports = router
 
 /*
-.get('/:id', authToken, getOneUserController)
 .delete('/:id', authToken, deleteUserController) */

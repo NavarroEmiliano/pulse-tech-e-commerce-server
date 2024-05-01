@@ -13,6 +13,7 @@ const getOneProduct = async id => {
       status: 404,
       message: 'Product not found'
     }
+
   return product
 }
 
@@ -72,6 +73,7 @@ const updateProduct = async (id, newData) => {
 const getProductsByCategory = async (category) => {
 
   const productsFound = await Product.find({category})
+
 
 
   if (!productsFound.length) {

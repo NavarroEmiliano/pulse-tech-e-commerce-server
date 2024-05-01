@@ -1,21 +1,15 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema(
+const cartSchema = new mongoose.Schema(
   {
-    name: String,
-    email: {
-      type: String,
-      unique: true,
-      required: true
-    },
-    passwordHash: String,
-    role : String
+    productId: String,
+    quantity: Number,
+    userId: String
   },
   { timestamps: true }
 )
 
-
-userSchema.set('toJSON', {
+cartSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -25,5 +19,4 @@ userSchema.set('toJSON', {
   }
 })
 
-
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('Cart', cartSchema)

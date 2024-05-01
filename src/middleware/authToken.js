@@ -8,7 +8,7 @@ const authToken = async (req, res, next) => {
     if (!token) {
       throw {
         status: 401,
-        message: 'User not logged in'
+        message: 'Please Login...!'
       }
     }
 
