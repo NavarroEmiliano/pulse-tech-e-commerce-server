@@ -1,8 +1,7 @@
 const Cart = require('../models/cart')
 
 const getUserCart = async userId => {
-  const userCart = await Cart.find({ userId })
-
+  const userCart = await Cart.find({ userId }).populate('productId')
 
   if (!userCart) {
     throw {
@@ -14,7 +13,7 @@ const getUserCart = async userId => {
   return userCart
 }
 
-const addToCart = async (productId, userId) => {
+const addToUserCart = async (productId, userId) => {
   const productFound = await Cart.findOne({ productId, userId })
 
   if (productFound) {
@@ -37,7 +36,23 @@ const addToCart = async (productId, userId) => {
   return savedProduct
 }
 
+const updateItemUserCart = async (_id, quantity) => {
+  if (quantity === 0) {
+    await Cart.deleteOne({ _id });
+    return null
+  }
+
+  const foundItemUpdated = await Cart.findOneAndUpdate(
+    { _id },
+    { quantity },
+    { new: true }
+  ).populate('productId');
+
+  return foundItemUpdated
+};
+
 module.exports = {
-  addToCart,
-  getUserCart
+  addToUserCart,
+  getUserCart,
+  updateItemUserCart
 }

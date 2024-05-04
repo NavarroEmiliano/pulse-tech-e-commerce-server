@@ -1,10 +1,10 @@
-const cartService  = require('../services/cartService')
+const cartService = require('../services/cartService')
 
 const addToCartController = async (req, res) => {
   try {
-    const {userId, body } = req
+    const { userId, body } = req
 
-    const savedProduct = await cartService.addToCart(body.productId,userId)
+    const savedProduct = await cartService.addToUserCart(body.productId, userId)
     return res.send({ status: 'OK', data: savedProduct })
   } catch (error) {
     return res
@@ -13,15 +13,13 @@ const addToCartController = async (req, res) => {
   }
 }
 
-const getUserCartController = async(req,res) => {
-
+const getUserCartController = async (req, res) => {
   try {
-    const {userId} = req
+    const { userId } = req
 
     const userCart = await cartService.getUserCart(userId)
 
-    
-    return res.send({ status: 'OK', data: userCart})
+    return res.send({ status: 'OK', data: userCart })
   } catch (error) {
     return res
       .status(error.status || 500)
@@ -29,9 +27,21 @@ const getUserCartController = async(req,res) => {
   }
 }
 
+const updateItemUserCartController = async (req, res) => {
+  try {
+    const { id: _id, quantity } = req.body
 
+    const updatedItem = await cartService.updateItemUserCart(_id, quantity)
+    return res.send({ status: 'OK', data: updatedItem })
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
 
 module.exports = {
   addToCartController,
-  getUserCartController
+  getUserCartController,
+  updateItemUserCartController
 }

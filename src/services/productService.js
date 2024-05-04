@@ -86,6 +86,7 @@ const getProductsByCategory = async (category) => {
   return productsFound
 }
 
+
 module.exports = {
   getAllProducts,
   getOneProduct,

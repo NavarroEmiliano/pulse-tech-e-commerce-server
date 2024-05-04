@@ -1,7 +1,8 @@
 const { Router } = require('express')
 const {
   addToCartController,
-  getUserCartController
+  getUserCartController,
+  updateItemUserCartController
 } = require('../controllers/cartController')
 
 const router = Router()
@@ -9,5 +10,6 @@ const router = Router()
 router
       .get('/', getUserCartController)
       .post('/', addToCartController)
+      .post('/update', updateItemUserCartController)
 
 module.exports = router
