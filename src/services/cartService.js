@@ -31,14 +31,14 @@ const addToUserCart = async (productId, userId) => {
 
   const cart = new Cart(payload)
 
-  const savedProduct = await cart.save()
+  const savedProduct = (await cart.save()).populate('productId')
 
   return savedProduct
 }
 
 const updateItemUserCart = async (_id, quantity) => {
   if (quantity === 0) {
-    await Cart.deleteOne({ _id });
+    await Cart.deleteOne({ _id })
     return null
   }
 
@@ -46,13 +46,19 @@ const updateItemUserCart = async (_id, quantity) => {
     { _id },
     { quantity },
     { new: true }
-  ).populate('productId');
+  ).populate('productId')
 
   return foundItemUpdated
-};
+}
+
+const deleteItemCart = async id => {
+  const product = await Cart.findByIdAndDelete(id)
+  if (!product) return 'Product successfully removed'
+}
 
 module.exports = {
   addToUserCart,
   getUserCart,
-  updateItemUserCart
+  updateItemUserCart,
+  deleteItemCart
 }
