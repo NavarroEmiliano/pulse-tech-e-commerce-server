@@ -45,7 +45,6 @@ const deleteItemUserCartController = async (req, res) => {
     const { productId } = req.params
 
     const deletedItem = await cartService.deleteItemCart(productId)
-    console.log(deletedItem)
     return res.send({ status: 'OK', data: deletedItem })
   } catch (error) {
     return res
