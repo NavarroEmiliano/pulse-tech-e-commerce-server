@@ -21,7 +21,7 @@ app.use(
     credentials: true
   })
 )
-console.log(process.env.FRONTEND_URL)
+console.log('frontendURL', process.env.FRONTEND_URL)
 
 
 app.use(express.json())
