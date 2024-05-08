@@ -3,7 +3,7 @@ const connectDB = require('./src/database/db')
 const { createAdminDB } = require('./src/services/createAdminDB')
 const { loadProductsFromAPI } = require('./src/services/loadProductsFromAPI')
 
-const PORT = 3001 || process.env.PORT
+const PORT = process.env.PORT || 3001 
 
 const connection = async () => {
   try {
