@@ -71,6 +71,13 @@ const updateUserController = async (req, res) => {
       params: { id }
     } = req
 
+    if (email === 'admin@gmail.com') {
+      throw {
+        status: 404,
+        message: 'Warning! An administrator cannot be changed to a general user.'
+      }
+    }
+
     const newData = {
       ...(name && { name: name }),
       ...(email && { email: email }),
