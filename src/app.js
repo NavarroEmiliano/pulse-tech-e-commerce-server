@@ -15,12 +15,14 @@ const cartRouter = require('./routes/cartRoutes')
 
 const authToken = require('./middleware/authToken')
 
-app.use(
+/* app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
   })
-)
+) */
+
+app.use(cors())
 console.log('frontendURL', process.env.FRONTEND_URL)
 
 
