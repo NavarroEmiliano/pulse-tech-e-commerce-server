@@ -1,7 +1,7 @@
-const app = require('./app')
-const connectDB = require('./database/db')
-const { createAdminDB } = require('./services/createAdminDB')
-const { loadProductsFromAPI } = require('./services/loadProductsFromAPI')
+const app = require('./src/app')
+const connectDB = require('./src/database/db')
+const { createAdminDB } = require('./src/services/createAdminDB')
+const { loadProductsFromAPI } = require('./src/services/loadProductsFromAPI')
 
 const PORT = 3001 || process.env.PORT
 
