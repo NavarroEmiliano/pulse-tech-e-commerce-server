@@ -53,9 +53,27 @@ const deleteItemUserCartController = async (req, res) => {
   }
 }
 
+
+const countUserCartController = async (req, res) => {
+  try {
+    const { userId } = req
+
+    const countUserCart = await cartService.countUserCart(userId)
+    return res.send({ status: 'OK', data: countUserCart })
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
+
+
+
+
 module.exports = {
   addToCartController,
   getUserCartController,
   updateItemUserCartController,
-  deleteItemUserCartController
+  deleteItemUserCartController,
+  countUserCartController
 }

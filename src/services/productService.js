@@ -69,11 +69,8 @@ const updateProduct = async (id, newData) => {
   return product
 }
 
-const getProductsByCategory = async (category) => {
-
-  const productsFound = await Product.find({category})
-
-
+const getProductsByCategory = async category => {
+  const productsFound = await Product.find({ category })
 
   if (!productsFound.length) {
     throw {
@@ -85,6 +82,27 @@ const getProductsByCategory = async (category) => {
   return productsFound
 }
 
+const getOneProductsPerCategory = async () => {
+  const productsFound = await Product.aggregate([
+    { $group: { _id: '$category', product: { $first: '$$ROOT' } } },
+    { $replaceRoot: { newRoot: '$product' } },
+    {
+      $addFields: {
+        id: { $toString: '$_id' }
+      }
+    },
+    { $project: { _id: 0, __v: 0 } }
+  ])
+
+  if (!productsFound.length) {
+    throw {
+      status: 404,
+      message: 'Products not found'
+    }
+  }
+
+  return productsFound
+}
 
 module.exports = {
   getAllProducts,
@@ -92,5 +110,6 @@ module.exports = {
   createNewProduct,
   deleteProduct,
   updateProduct,
-  getProductsByCategory
+  getProductsByCategory,
+  getOneProductsPerCategory
 }

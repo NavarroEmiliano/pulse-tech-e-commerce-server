@@ -56,9 +56,15 @@ const deleteItemCart = async id => {
   if (!product) return 'Product successfully removed'
 }
 
+const countUserCart = async userId => {
+  const totalProducts = await Cart.countDocuments({ userId })
+  return totalProducts
+}
+
 module.exports = {
   addToUserCart,
   getUserCart,
   updateItemUserCart,
-  deleteItemCart
+  deleteItemCart,
+  countUserCart
 }

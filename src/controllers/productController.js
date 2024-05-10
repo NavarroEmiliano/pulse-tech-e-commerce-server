@@ -97,10 +97,25 @@ const getProductsByCategoryController = async (req, res) => {
   }
 }
 
+
+
+
+const getOneProductPerCategoryController = async (req, res) => {
+  try {
+    const products = await productService.getOneProductsPerCategory()
+    return res.send({ status: 'OK', data: products })
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
+
 module.exports = {
   getAllProductsController,
   createNewProductController,
   updateProductController,
   getProductsByCategoryController,
-  getOneProductController
+  getOneProductController,
+  getOneProductPerCategoryController
 }
