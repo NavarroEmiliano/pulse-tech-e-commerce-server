@@ -3,6 +3,6 @@ const { logoutUserController } = require('../controllers/logoutController')
 
 const router = Router()
 
-router.get('/', logoutUserController)
+router.post('/', logoutUserController)
 
 module.exports = router

@@ -20,24 +20,7 @@ const getOneUserController = async (req, res) => {
 
 const createNewUserController = async (req, res) => {
   try {
-    const { name, email, password } = req.body
-    if (!name || !email || !password) {
-      return res.status(400).send({
-        status: 'FAILED',
-        data: 'Missing fields'
-      })
-    }
-
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(password, saltRounds)
-
-    const newUser = {
-      email,
-      name,
-      passwordHash,
-      role: 'GENERAL'
-    }
-    const user = await usersService.createNewUser(newUser)
+    const user = await usersService.createNewUser(req.body)
 
     return res.status(201).send({ status: 'OK', data: user })
   } catch (error) {
@@ -74,7 +57,8 @@ const updateUserController = async (req, res) => {
     if (email === 'admin@gmail.com') {
       throw {
         status: 404,
-        message: 'Warning! An administrator cannot be changed to a general user.'
+        message:
+          'Warning! An administrator cannot be changed to a general user.'
       }
     }
 
