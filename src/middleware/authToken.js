@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const authToken = async (req, res, next) => {
   try {
     const token = req.cookies?.loggedPulseTechUserToken
-
+    console.log(req.cookies?.loggedPulseTechUserToken)
 
     if (!token) {
       throw {
@@ -14,10 +14,10 @@ const authToken = async (req, res, next) => {
 
     jwt.verify(token, process.env.TOKEN_SECRET_KEY, (err, decoded) => {
       if (err) {
-        throw  {
-            status: 401,
-            message: 'Unauthorized'
-          }
+        throw {
+          status: 401,
+          message: 'Unauthorized'
+        }
       }
       req.userId = decoded.id
       next()
