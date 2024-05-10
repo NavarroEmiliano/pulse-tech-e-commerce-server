@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const validator = require('validator')
+const bcrypt = require('bcrypt')
 
 const getAllUsers = async () => {
   const users = await User.find({})
@@ -34,19 +35,19 @@ const createNewUser = async reqBody => {
     }
   }
 
+  const userFound = await User.find({ email: reqBody.email })
+
+  if (userFound.length) {
+    throw {
+      status: 409,
+      message: 'Email already in use'
+    }
+  }
+
   if (!validator.isStrongPassword(password)) {
     throw {
       status: 400,
       message: 'Password not strong enough'
-    }
-  }
-
-  const findUser = await User.find({ email: newUser.email })
-
-  if (findUser.length) {
-    throw {
-      status: 409,
-      message: 'Email already in use'
     }
   }
 

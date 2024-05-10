@@ -1,5 +1,7 @@
 const logoutUserController = async (req, res) => {
   try {
+
+    
     res.clearCookie('loggedPulseTechUserToken')
 
     return res

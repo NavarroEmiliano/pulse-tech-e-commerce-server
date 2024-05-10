@@ -1,5 +1,4 @@
 const usersService = require('../services/usersService.js')
-const bcrypt = require('bcrypt')
 
 const getAllUsersController = async (_req, res) => {
   const allUsers = await usersService.getAllUsers()
