@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const authToken = async (req, res, next) => {
   try {
     const token = req.cookies?.loggedPulseTechUserToken
-    console.log(req.cookies?.loggedPulseTechUserToken)
 
     if (!token) {
       throw {
