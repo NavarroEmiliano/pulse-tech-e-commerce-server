@@ -16,7 +16,7 @@ const loginUserController = async (req, res) => {
     const tokenOption = {
       httpOnly: true,
       secure: true,
-      sameSite: 'Strict',
+      sameSite: 'None'
     }
 
     return res

@@ -14,6 +14,10 @@ const cartRouter = require('./routes/cartRoutes')
 
 const authToken = require('./middleware/authToken')
 
+
+app.use(express.json())
+app.use(cookieParser())
+
 app.use(
   cors({
     origin: 'https://pulse-tech-e-commerce.vercel.app', // Cambia esto al origen correcto
@@ -21,8 +25,7 @@ app.use(
   })
 )
 
-app.use(express.json())
-app.use(cookieParser())
+
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
