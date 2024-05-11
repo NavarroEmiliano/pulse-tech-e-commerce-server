@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const cors = require('cors')
-const cookieParser = require('cookie-parser')
 
 /* Routers */
 const usersRouter = require('./routes/usersRoutes')
@@ -12,17 +11,16 @@ const productsRouter = require('./routes/productsRoutes')
 const cartRouter = require('./routes/cartRoutes')
 
 const authToken = require('./middleware/authToken')
-
-app.use(cookieParser())
+const tokenExtractor = require('./middleware/tokenExtractor')
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true
+    origin: process.env.FRONTEND_URL
   })
 )
 
 app.use(express.json())
+app.use(tokenExtractor)
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)

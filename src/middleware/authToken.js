@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken')
 
 const authToken = async (req, res, next) => {
   try {
-    const {token} = req.body
+    const { token } = req
 
     if (!token) {
       throw {
         status: 401,
-        message: 'Please Login...!'
+        message: 'Authorization token required'
       }
     }
 
