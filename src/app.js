@@ -14,7 +14,12 @@ const cartRouter = require('./routes/cartRoutes')
 
 const authToken = require('./middleware/authToken')
 
-app.use(cors())
+app.use(
+  cors({
+    origin: '*',
+    credentials: true
+  })
+)
 
 app.use(express.json())
 app.use(cookieParser())
