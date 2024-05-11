@@ -13,16 +13,7 @@ const loginUserController = async (req, res) => {
 
     const token = await loginService.loginUser(email, password)
 
-    const tokenOption = {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'Lax'
-    }
-
-    return res
-      .cookie('loggedPulseTechUserToken', token, tokenOption)
-      .status(200)
-      .send({ status: 'OK', data: token })
+    return res.status(200).send({ status: 'OK', data: token })
   } catch (error) {
     return res
       .status(error.status || 500)

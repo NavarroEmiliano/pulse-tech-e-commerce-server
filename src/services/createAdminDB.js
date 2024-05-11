@@ -3,18 +3,16 @@ const bcrypt = require('bcrypt')
 
 const createAdminDB = async () => {
   try {
-
-    const password = "admin"
+    const password = 'admin'
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
 
     const newUser = {
-      email:'admin@gmail.com',
-      name:'Admin',
+      email: 'admin@gmail.com',
+      name: 'Admin',
       passwordHash,
       role: 'ADMIN'
     }
-
 
     const response = await usersService.createNewUser(newUser)
 
@@ -24,4 +22,4 @@ const createAdminDB = async () => {
   }
 }
 
-module.exports = {createAdminDB}
+module.exports = { createAdminDB }

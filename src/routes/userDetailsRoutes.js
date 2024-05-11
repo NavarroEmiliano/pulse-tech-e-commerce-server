@@ -5,6 +5,6 @@ const {
 
 const router = Router()
 
-router.get('/', getUserDetailsController)
+router.post('/', getUserDetailsController)
 
 module.exports = router

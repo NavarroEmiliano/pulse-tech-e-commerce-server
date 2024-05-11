@@ -3,7 +3,7 @@ const connectDB = require('./src/database/db')
 const { createAdminDB } = require('./src/services/createAdminDB')
 const { loadProductsFromAPI } = require('./src/services/loadProductsFromAPI')
 
-const PORT = process.env.PORT || 3001 
+const PORT = process.env.PORT || 3001
 
 const connection = async () => {
   try {
@@ -11,7 +11,7 @@ const connection = async () => {
     const response = await loadProductsFromAPI()
     console.log(response)
     const userResponse = await createAdminDB()
-    console.log(userResponse)
+    console.log('create admin:', userResponse)
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`)
     })
