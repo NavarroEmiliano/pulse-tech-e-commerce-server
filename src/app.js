@@ -26,6 +26,6 @@ app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/user-details', authToken, userDetailsRouter)
 app.use('/api/products', productsRouter)
-app.use('/api/cart', /* authToken, */ cartRouter)
+app.use('/api/cart', authToken, cartRouter)
 
 module.exports = app
