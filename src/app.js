@@ -13,6 +13,7 @@ const productsRouter = require('./routes/productsRoutes')
 const cartRouter = require('./routes/cartRoutes')
 
 const authToken = require('./middleware/authToken')
+app.use(cookieParser())
 
 app.use(
   cors({
@@ -22,7 +23,6 @@ app.use(
 )
 
 app.use(express.json())
-app.use(cookieParser())
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
