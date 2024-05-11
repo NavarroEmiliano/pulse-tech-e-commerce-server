@@ -16,7 +16,7 @@ const authToken = require('./middleware/authToken')
 
 app.use(
   cors({
-    origin: '*',
+    origin: 'https://pulse-tech-e-commerce.vercel.app', // Cambia esto al origen correcto
     credentials: true
   })
 )
