@@ -9,7 +9,8 @@ const {
   getOneProductController,
   getOneProductPerCategoryController,
   getAllBrandsController,
-  getAllCategoriesController
+  getAllCategoriesController,
+  deleteProductController
 } = require('../controllers/productController')
 
 router
@@ -21,8 +22,8 @@ router
   .get('/:productId', getOneProductController)
   .post('/', authToken, createNewProductController)
   .put('/:id', authToken, updateProductController)
+  .delete('/:productId' ,authToken, deleteProductController)
 
 module.exports = router
 
-/*
-.delete('/:id', authToken, deleteUserController) */
+

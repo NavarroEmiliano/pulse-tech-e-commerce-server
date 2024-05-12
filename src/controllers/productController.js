@@ -18,6 +18,28 @@ const getOneProductController = async (req, res) => {
   }
 }
 
+
+const deleteProductController = async (req, res) => {
+  try {
+    const sessionUserId = req.userId
+    const {productId} = req.params
+
+    if (!uploadProductPermission(sessionUserId)) {
+      throw {
+        status: 401,
+        message: 'Unauthorized'
+      }
+    }
+    
+    const deletedMessage = await productService.deleteProduct(productId)
+    return res.send({ status: 'OK', data: deletedMessage })
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
+
 const createNewProductController = async (req, res) => {
   try {
     const sessionUserId = req.userId
@@ -143,5 +165,6 @@ module.exports = {
   getOneProductController,
   getOneProductPerCategoryController,
   getAllBrandsController,
-  getAllCategoriesController
+  getAllCategoriesController,
+  deleteProductController
 }

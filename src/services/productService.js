@@ -44,7 +44,7 @@ const deleteProduct = async id => {
       message: 'Product not found'
     }
   }
-  return product
+  return 'Product deleted successfully'
 }
 
 const updateProduct = async (id, newData) => {
