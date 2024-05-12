@@ -104,6 +104,16 @@ const getOneProductsPerCategory = async () => {
   return productsFound
 }
 
+const getAllBrands = async () => {
+  const brands = await Product.distinct('brand')
+  return brands
+}
+
+const getAllCategories = async () => {
+  const categories = await Product.distinct('category')
+  return categories
+}
+
 module.exports = {
   getAllProducts,
   getOneProduct,
@@ -111,5 +121,7 @@ module.exports = {
   deleteProduct,
   updateProduct,
   getProductsByCategory,
-  getOneProductsPerCategory
+  getOneProductsPerCategory,
+  getAllBrands,
+  getAllCategories
 }

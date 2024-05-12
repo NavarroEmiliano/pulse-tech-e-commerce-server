@@ -7,13 +7,17 @@ const {
   updateProductController,
   getProductsByCategoryController,
   getOneProductController,
-  getOneProductPerCategoryController
+  getOneProductPerCategoryController,
+  getAllBrandsController,
+  getAllCategoriesController
 } = require('../controllers/productController')
 
 router
   .get('/', getAllProductsController)
   .get('/category/:categoryName', getProductsByCategoryController)
   .get('/one-per-category', getOneProductPerCategoryController)
+  .get('/all-brands',getAllBrandsController)
+  .get('/all-categories',getAllCategoriesController)
   .get('/:productId', getOneProductController)
   .post('/', authToken, createNewProductController)
   .put('/:id', authToken, updateProductController)
