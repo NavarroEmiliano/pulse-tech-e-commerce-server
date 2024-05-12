@@ -53,7 +53,7 @@ const updateItemUserCart = async (_id, quantity) => {
 
 const deleteItemCart = async id => {
   const product = await Cart.findByIdAndDelete(id)
-  if (!product) return 'Product successfully removed'
+  if (product.id) return 'Product successfully removed'
 }
 
 const countUserCart = async userId => {
