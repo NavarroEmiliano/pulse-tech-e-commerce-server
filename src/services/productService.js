@@ -114,6 +114,19 @@ const getAllCategories = async () => {
   return categories
 }
 
+const searchProducts = async (query) => {
+  const regexQuery = new RegExp(query, 'i')
+  const productsFound = await Product.find({
+    '$or' : [
+      { title: { $regex: regexQuery } },
+        { category: { $regex: regexQuery } }
+    ]
+  })
+  return productsFound
+}
+
+
+
 module.exports = {
   getAllProducts,
   getOneProduct,
@@ -123,5 +136,6 @@ module.exports = {
   getProductsByCategory,
   getOneProductsPerCategory,
   getAllBrands,
-  getAllCategories
+  getAllCategories,
+  searchProducts
 }

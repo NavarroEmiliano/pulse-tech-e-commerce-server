@@ -10,20 +10,20 @@ const {
   getOneProductPerCategoryController,
   getAllBrandsController,
   getAllCategoriesController,
-  deleteProductController
+  deleteProductController,
+  searchProductsController
 } = require('../controllers/productController')
 
 router
   .get('/', getAllProductsController)
-  .get('/category/:categoryName', getProductsByCategoryController)
+  .get('/search', searchProductsController)
+  .get('/all-brands', getAllBrandsController)
   .get('/one-per-category', getOneProductPerCategoryController)
-  .get('/all-brands',getAllBrandsController)
-  .get('/all-categories',getAllCategoriesController)
+  .get('/all-categories', getAllCategoriesController)
+  .get('/category/:categoryName', getProductsByCategoryController)
   .get('/:productId', getOneProductController)
   .post('/', authToken, createNewProductController)
   .put('/:id', authToken, updateProductController)
-  .delete('/:productId' ,authToken, deleteProductController)
+  .delete('/:productId', authToken, deleteProductController)
 
 module.exports = router
-
-

@@ -155,6 +155,18 @@ const getAllCategoriesController = async (req, res) => {
   }
 }
 
+const searchProductsController = async (req, res) => {
+  try {
+    const query = req.query.q
+    const products= await productService.searchProducts(query)
+    return res.send({ status: 'OK', data: products }) 
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
+
 
 
 module.exports = {
@@ -166,5 +178,6 @@ module.exports = {
   getOneProductPerCategoryController,
   getAllBrandsController,
   getAllCategoriesController,
-  deleteProductController
+  deleteProductController,
+  searchProductsController
 }
