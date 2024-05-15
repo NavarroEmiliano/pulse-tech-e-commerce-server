@@ -1,6 +1,5 @@
-const base = 'https://api-m.sandbox.paypal.com'
 
-const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env
+const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET ,PAYPAL_BASE_URL : base } = process.env
 
 const generateAccessToken = async () => {
   try {
