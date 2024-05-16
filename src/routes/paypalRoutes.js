@@ -3,6 +3,7 @@ const {
   createOrderController,
   captureOrderController
 } = require('../controllers/paypalController')
+const { captureOrder } = require('../services/captureOrderService')
 
 const router = Router()
 
