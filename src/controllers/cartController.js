@@ -53,7 +53,6 @@ const deleteItemUserCartController = async (req, res) => {
   }
 }
 
-
 const countUserCartController = async (req, res) => {
   try {
     const { userId } = req
@@ -67,13 +66,23 @@ const countUserCartController = async (req, res) => {
   }
 }
 
-
-
+const deleteUserCartController = async (req, res) => {
+  try {
+    const { userId } = req
+    const deletedMessage = await cartService.deleteUserCart(userId)
+    return res.send({ status: 'OK', data: deletedMessage })
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
 
 module.exports = {
   addToCartController,
   getUserCartController,
   updateItemUserCartController,
   deleteItemUserCartController,
-  countUserCartController
+  countUserCartController,
+  deleteUserCartController
 }
