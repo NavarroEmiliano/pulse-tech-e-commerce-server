@@ -14,7 +14,8 @@ const purchaseSchema = new mongoose.Schema(
         quantity: {
           type: Number,
           required: true
-        }
+        },
+        unitPrice:Number
       }
     ],
     totalPrice: Number

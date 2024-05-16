@@ -11,4 +11,25 @@ const createNewPurchase = async (newPurchase, userId) => {
   return savedPurchase
 }
 
-module.exports = { createNewPurchase }
+const getUserPurchases = async userId => {
+  const userPurchases = await Purchase.find({ userId }).populate({
+    path: 'items',
+    populate: {
+      path: 'productId',
+      model: 'Product'
+    }
+  });
+
+  console.log(userPurchases)
+
+  if (!userPurchases) {
+    throw {
+      status: 409,
+      message: 'Empty cart'
+    }
+  }
+
+  return userPurchases
+}
+
+module.exports = { createNewPurchase, getUserPurchases }

@@ -1,11 +1,14 @@
 const { Router } = require('express')
 const authToken = require('../middleware/authToken')
 const {
-  addNewPurchaseController
+  addNewPurchaseController,
+  getUserPurchasesController
 } = require('../controllers/purchaseController')
 
 const router = Router()
 
-router.post('/', authToken, addNewPurchaseController)
+router
+  .post('/', authToken, addNewPurchaseController)
+  .get('/user-purchases', authToken, getUserPurchasesController)
 
 module.exports = router
