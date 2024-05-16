@@ -6,10 +6,6 @@ const {
 } = require('../helpers/calculateDiscountedPrice')
 
 const createOrder = async cart => {
-  console.log(
-    'shopping cart information passed from the frontend createOrder() callback:',
-    cart
-  )
   const accessToken = await generateAccessToken()
   const url = `${base}/v2/checkout/orders`
 
@@ -23,18 +19,18 @@ const createOrder = async cart => {
         curr.quantity,
     0
   )
-
   const payload = {
     intent: 'CAPTURE',
     purchase_units: [
       {
         amount: {
           currency_code: 'USD',
-          value: total
+          value: total.toFixed(2)
         }
       }
     ]
   }
+
   const { data } = await axios.post(url, payload, {
     headers: {
       Authorization: `Bearer ${accessToken}`

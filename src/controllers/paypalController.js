@@ -17,6 +17,7 @@ const captureOrderController = async (req, res) => {
   try {
     const { orderID } = req.params
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID)
+    
     res.status(httpStatusCode).json(jsonResponse)
   } catch (error) {
     console.error('Failed to create order:', error)
