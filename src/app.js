@@ -11,6 +11,7 @@ const productsRouter = require('./routes/productsRoutes')
 const cartRouter = require('./routes/cartRoutes')
 const paypalRouter = require('./routes/paypalRoutes')
 const updateStockRouter = require('./routes/updateStockRoutes')
+const purchaseRouter = require('./routes/purchaseRoutes')
 
 const authToken = require('./middleware/authToken')
 const tokenExtractor = require('./middleware/tokenExtractor')
@@ -30,6 +31,7 @@ app.use('/api/user-details', authToken, userDetailsRouter)
 app.use('/api/products', productsRouter)
 app.use('/api/cart', authToken, cartRouter)
 app.use('/api/orders', paypalRouter)
-app.use('/api/update-stock',updateStockRouter)
+app.use('/api/update-stock', updateStockRouter)
+app.use('/api/purchases', purchaseRouter)
 
 module.exports = app
