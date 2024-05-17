@@ -1,6 +1,9 @@
 const User = require('../models/user')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+const JWT_SECRET = process.env.TOKEN_SECRET_KEY
 
 const getAllUsers = async () => {
   const users = await User.find({})
@@ -94,6 +97,25 @@ const updateUser = async (id, newData) => {
   }
 
   return user
+}
+
+const forgotPassword = async (email)=>{
+  const userFound = await User.findOne({email})
+
+  if (!userFound)
+    throw {
+      status: 404,
+      message: 'User not found'
+    }
+
+    const secret = JWT_SECRET + userFound.passwordHash
+    const token = jwt.sign({email: userFound.email , id: userFound._id},secret, {
+      expiresIn:"5m"
+    })
+
+    const link = `http://localhost:3001/reset-password/${userFound._id}/${token}`
+  return user
+
 }
 
 module.exports = {

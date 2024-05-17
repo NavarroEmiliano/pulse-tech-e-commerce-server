@@ -11,6 +11,8 @@ const router = Router()
 
 router
   .get('/', authToken, getAllUsersController)
+  .post('/forgot-password',forgotPasswordController)
+  .get('/reset-password', resetPasswordController)
   .get('/:id', authToken, getOneUserController)
   .post('/', createNewUserController)
   .delete('/:id', authToken, deleteUserController)
