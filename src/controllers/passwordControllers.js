@@ -16,9 +16,9 @@ const forgotPasswordController = async (req, res) => {
 const resetPasswordController = async (req, res) => {
   try {
     const { id, token } = req.params
-    const user = await usersService.resetPassword(id, token)
-    console.log(user)
-    /*     return res.status(201).send({ status: 'OK', data: user }) */
+    const { password } = req.body
+    const message = await forgotPasswordService.resetPassword(id, token, password)
+    return res.status(201).send({ status: 'OK', data: message })
   } catch (error) {
     return res.status(error.status || 500).send({
       status: 'FAILED',

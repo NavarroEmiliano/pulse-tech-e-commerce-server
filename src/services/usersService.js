@@ -1,9 +1,7 @@
 const User = require('../models/user')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
-const JWT_SECRET = process.env.TOKEN_SECRET_KEY
 
 const getAllUsers = async () => {
   const users = await User.find({})

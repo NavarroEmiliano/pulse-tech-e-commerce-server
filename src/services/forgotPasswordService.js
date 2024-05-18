@@ -1,7 +1,9 @@
-const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const bcrypt = require('bcrypt')
+const validator = require('validator')
 
+const { transporter } = require('../config/mailer')
 
 const forgotPassword = async email => {
   const userFound = await User.findOne({ email })
@@ -20,45 +22,66 @@ const forgotPassword = async email => {
     }
   )
 
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'youremail@gmail.com',
-      pass: 'yourpassword'
-    }
+  const info = await transporter.sendMail({
+    from: '"Forgot password 👻" <emilianonavarrotest@gmail.com>', // sender address
+    to: email, // list of receivers
+    subject: 'Forgot password ✔', // Subject line
+    text: 'Hello world?', // plain text body
+    html: `${process.env.FRONTEND_URL}/reset-password/${userFound._id}/${token}` // html body
   })
 
-  let mailOptions = {
-    from: 'youremail@gmail.com',
-    to: email,
-    subject: 'Reset your password',
-    text: `http://localhost:5173/reset-password/${userFound._id}/${token}`
-  }
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error)
-    } else {
-      return 'Email sent: ' + info.response
-    }
-  })
-}
-
-const resetPassword = async (id, token) => {
-  const userFound = await User.findOne({ _id: id })
-
-  if (!userFound)
+  if (!info.accepted[0])
     throw {
       status: 404,
-      message: 'User not found'
+      message: 'Could not send email'
     }
 
-  const secret = JWT_SECRET + userFound.passwordHash
+  return 'An email has been sent to you to reset your password. Please check your inbox (and your spam folder).'
+}
 
-  const verify = jwt.verify(token, secret)
+const resetPassword = async (id, token, password) => {
+  if (!validator.isStrongPassword(password)) {
+    throw {
+      status: 400,
+      message: 'Password not strong enough'
+    }
+  }
 
-  const link = `http://localhost:3001/api/users/reset-password/${userFound._id}/${token}`
-  return link
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.TOKEN_SECRET_KEY, async (err, decoded) => {
+      if (err) {
+        reject({
+          status: 401,
+          message: 'Error with token'
+        })
+      } else {
+        try {
+          const saltRounds = 10
+          const passwordHash = await bcrypt.hash(password, saltRounds)
+
+          const userFound = await User.findByIdAndUpdate(
+            { _id: id },
+            { passwordHash },
+            { new: true }
+          )
+
+          if (!userFound) {
+            reject({
+              status: 404,
+              message: 'User not found'
+            })
+          } else {
+            resolve('Your password has been successfully changed.')
+          }
+        } catch (error) {
+          reject({
+            status: 500,
+            message: 'Internal server error'
+          })
+        }
+      }
+    })
+  })
 }
 
 module.exports = {

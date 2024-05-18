@@ -4,16 +4,19 @@ const {
   getOneUserController,
   createNewUserController,
   deleteUserController,
-  updateUserController,
+  updateUserController
 } = require('../controllers/usersController')
 const authToken = require('../middleware/authToken')
-const { forgotPasswordController, resetPasswordController } = require('../controllers/forgotPasswordControllers')
+const {
+  forgotPasswordController,
+  resetPasswordController
+} = require('../controllers/passwordControllers')
 const router = Router()
 
 router
   .get('/', authToken, getAllUsersController)
-  .post('/forgot-password' ,forgotPasswordController)
-  .get('/reset-password/:id/:token' ,resetPasswordController)
+  .post('/forgot-password', forgotPasswordController)
+  .post('/reset-password/:id/:token', resetPasswordController)
   .get('/:id', authToken, getOneUserController)
   .post('/', createNewUserController)
   .delete('/:id', authToken, deleteUserController)

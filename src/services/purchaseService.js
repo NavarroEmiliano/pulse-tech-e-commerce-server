@@ -18,9 +18,7 @@ const getUserPurchases = async userId => {
       path: 'productId',
       model: 'Product'
     }
-  });
-
-  console.log(userPurchases)
+  })
 
   if (!userPurchases) {
     throw {
