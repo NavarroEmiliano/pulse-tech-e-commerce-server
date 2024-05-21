@@ -2,7 +2,6 @@ const User = require('../models/user')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 
-
 const getAllUsers = async () => {
   const users = await User.find({})
   return users
@@ -67,8 +66,7 @@ const createNewUser = async reqBody => {
   })
 
   const savedUser = await user.save()
-
-  return savedUser
+  if (savedUser) return 'User created successfully'
 }
 
 const deleteUser = async id => {
@@ -97,11 +95,10 @@ const updateUser = async (id, newData) => {
   return user
 }
 
-
 module.exports = {
   getAllUsers,
   getOneUser,
   createNewUser,
   deleteUser,
-  updateUser,
+  updateUser
 }
