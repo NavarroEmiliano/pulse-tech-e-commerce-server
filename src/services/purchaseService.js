@@ -1,3 +1,4 @@
+const { all } = require('axios')
 const Purchase = require('../models/purchase')
 
 const createNewPurchase = async (newPurchase, userId) => {
@@ -30,4 +31,30 @@ const getUserPurchases = async userId => {
   return userPurchases
 }
 
-module.exports = { createNewPurchase, getUserPurchases }
+const getAllPurchases = async userId => {
+  if (!uploadProductPermission(userId)) {
+    throw {
+      status: 401,
+      message: 'Unauthorized'
+    }
+  }
+
+  const allPurchases = await Purchase.find({})
+    .populate({
+      path: 'userId'
+    })
+    .populate({
+      path: 'items.productId'
+    })
+
+  if (!allPurchases) {
+    throw {
+      status: 409,
+      message: 'Without purchases'
+    }
+  }
+
+  return allPurchases
+}
+
+module.exports = { createNewPurchase, getUserPurchases, getAllPurchases }

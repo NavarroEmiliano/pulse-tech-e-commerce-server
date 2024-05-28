@@ -12,7 +12,6 @@ const addNewPurchaseController = async (req, res) => {
   }
 }
 
-
 const getUserPurchasesController = async (req, res) => {
   try {
     const { userId } = req
@@ -26,4 +25,21 @@ const getUserPurchasesController = async (req, res) => {
   }
 }
 
-module.exports = { addNewPurchaseController ,getUserPurchasesController}
+const getAllPurchasesController = async (req, res) => {
+  try {
+    const { userId } = req
+
+    const allPurchases = await purchaseService.getAllPurchases(userId)
+    return res.send({ status: 'OK', data: allPurchases })
+  } catch (error) {
+    return res
+      .status(error.status || 500)
+      .send({ status: 'FAILED', data: error.message })
+  }
+}
+
+module.exports = {
+  addNewPurchaseController,
+  getUserPurchasesController,
+  getAllPurchasesController
+}

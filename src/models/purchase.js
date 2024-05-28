@@ -4,7 +4,10 @@ const purchaseSchema = new mongoose.Schema(
   {
     id: String,
     status: String,
-    userId: String,
+    userId: {
+      ref: 'User',
+      type: String
+    },
     items: [
       {
         productId: {
@@ -15,7 +18,7 @@ const purchaseSchema = new mongoose.Schema(
           type: Number,
           required: true
         },
-        unitPrice:Number
+        unitPrice: Number
       }
     ],
     totalPrice: Number
