@@ -23,7 +23,9 @@ const loadProductsFromAPI = async () => {
             stock: productData.stock,
             brand: productData.brand,
             category: productData.category,
-            images: productData.images
+            images: productData.images,
+            reviews:productData.reviews,
+            thumbnail:productData.thumbnail
           })
 
           await product.save()

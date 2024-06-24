@@ -23,7 +23,9 @@ const productSchema = new mongoose.Schema(
     state: {
       type: Boolean,
       default: true
-    }
+    },
+    reviews: Array(Object),
+    thumbnail : String
   },
   { timestamps: true }
 )
